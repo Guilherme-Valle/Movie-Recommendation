@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<script type="text/javascript" src="script.js"></script>
-	<title>Recomendação de filmes</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="script.js"></script>
+    <title>Recomendacao de filmes</title>
 </head>
 <body>
+<div class="content">
+    <h1 class="title"> Me indique um filme </h1>
+    <h3>
+        Quer assistir um filme e não sabe qual?
+    </h3>
+</div>
+
+<div class="content">
+    <div class="inputs">
+        <table style="flex">
+            <td><h2>Ano</h2>
+                <input type="text" aria-label="Ano" id="year">
+                <h2>Categorias</h2>
+                <select id="categorie">
+                    <option>Selecione uma categoria</option>
+                </select>
+            </td>
+            <td>
+                <h2>Atores</h2>
+                <input type="text" aria-label="Atores" id="actors">
+                <h2>Outras informações</h2>
+                <input type="text" aria-label="Atores" id="informations">
+            </td>
+        </table>
+    </div>
+</div>
+</div>
+
 
 </body>
 </html>
