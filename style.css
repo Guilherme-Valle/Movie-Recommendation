@@ -4,12 +4,16 @@ body {
 
 .content {
     min-height: 230px;
-    min-width: 150px;
+    max-width: 1800px;
     background-color: whitesmoke;
     padding: 10px;
     text-align: center;
     margin-top: 40px;
+    border-radius: 20px;
     margin-bottom: 50px;
+    -webkit-box-shadow: 26px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 26px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 26px 10px 5px 0px rgba(0,0,0,0.75);
 }
 
 .title {
