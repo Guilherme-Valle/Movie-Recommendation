@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="script.js"></script>
     <title>Recomendacao de filmes</title>
 </head>
 <body>
@@ -20,8 +19,8 @@
             <td><h2>Ano</h2>
                 <input type="text" aria-label="Ano" id="year">
                 <h2>Categorias</h2>
-                <select id="categorie">
-                    <option>Selecione uma categoria</option>
+                <select class="categorie">
+                <option value="" disabled selected>Selecione uma categoria</option>
                 </select>
             </td>
             <td>
@@ -35,6 +34,9 @@
 </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="script.js"></script>
 
 </body>
+
 </html>
