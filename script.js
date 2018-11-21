@@ -1,5 +1,6 @@
 vm = this;
 vm.countRestart = 0;
+
 /**
  * Array of Categories of Movies
  * @type {string[]}
@@ -21,35 +22,6 @@ $.each(categories, function (i, item) {
 });
 
 /**
-Using youtube apikey to get trailers of the movies
-*/
-/*
-$(function(){
-	$("form").on("submit", fuction(e) {
-		e.preventDefault(); //Request is ready
-		var request = gapi.client.youtube.search.list({
-			part: "snippet",
-			type: "video",
-			q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
-			maxResults: 1,
-			order: "viewCount"
-		});
-		//request is executed
-		request.execute(fuction(response)){
-			var results =
-			});
-		});
-	});
-});
-
-function iniatilizeapi(){
-		gapi.client.setApiKey("AIzaSyA6J3Ru2hawX5rArvcX_Re7NwB8Bl8KLIY");
-		gapi.client.load("youtube", "v3", function(){
-			//Api=Ok
-		}
-}
-/*
-/**
  * Listener para o botão de recomendação do filme.
  * Faz uma requisição Ajax.
  */
@@ -59,7 +31,6 @@ $("#recomendation").click(function () {
 
 function makeRecommendation(isRepeated) {
     var xmlhttp;
-
     /**
      * Retorna valores dos inputs
      * @type {jQuery}
@@ -117,20 +88,28 @@ function makeRecommendation(isRepeated) {
                 /** Verifica se uma das categorias do filme corresponde ao do filtro */
                 if (vm.categorie){
                     filters++;
+                    var hasCategorie = false;
                     for (var z = 0; z < categoriesOfMovie.length; z++){
                         if (categoriesOfMovie[z].innerText === vm.categorie){
-                            flag++;
+                            hasCategorie = true;
                         }
+                    }
+                    if (hasCategorie){
+                        flag++;
                     }
                 }
                 /** Verifica se um dos atores do filtro corresponde a algum dos atores do filme */
                 if (vm.actors){
                     filters++;
+                    var hasActor = false;
                     for (var k = 0; k < actors.length; k++){
                         for (x = 0; x < actorsOfMovie.length; x++){
                             if (actorsOfMovie[x].innerText === vm.actors[k]){
-                                flag++;
+                                hasActor = true;
                             }
+                        }
+                        if (hasActor){
+                            flag++;
                         }
                     }
                 }
@@ -170,6 +149,7 @@ function makeRecommendation(isRepeated) {
  * @param div
  */
 function showMovieRecommendation(div) {
+    console.log();
     var main_content = document.getElementById("main_content");
     /** Salva conteúdo anterior da div */
     if (vm.countRestart === 0) {
@@ -177,20 +157,40 @@ function showMovieRecommendation(div) {
     }
     vm.countRestart++;
     main_content.innerHTML = div.innerHTML;
+
+    /**  Exibe botões para voltar à tela anterior */
     var options = document.getElementsByTagName("h4");
     options[0].style.display = "block";
     options[1].style.display = "block";
     var button = document.getElementById('recomendation');
+    var nomeDoFilme = div.children[1].innerText;
+    nomeDoFilme += ' trailer';
+    console.log(nomeDoFilme);
+
+
+    getRequest(nomeDoFilme);
+
+    var youtubeString = 'https://www.youtube.com/embed/';
+
+    /** Oculta o botão */
     button.style.display = "none";
     vm.countRestart++;
 }
 
+/**
+ * Chama outra recomendação, sem mudar os parâmetros dos filtros.
+ *
+ */
 $("#show_another_movie").click(function () {
     makeRecommendation(true);
 })
 
+/**
+ * Retorna para a tela inicial
+ */
 $("#new_search").click(function () {
     vm.countRestart = 0;
+    document.getElementById('video').style.display = "none";
     var button = document.getElementById('recomendation');
     button.style.display = "block";
     button.style.marginLeft = "45%";
@@ -220,3 +220,25 @@ function shuffle(array){
 
     return array;
 }
+
+
+function getRequest(searchTerm) {
+    var url = 'https://www.googleapis.com/youtube/v3/search';
+    var search = searchTerm;
+    var params = {
+        part: 'snippet',
+        key: 'AIzaSyC_DoDVVipZ2yQCnkZw6kuIu5t9kNwPlf8',
+        q: search
+    };
+    $.getJSON(url, params, showResults);
+}
+
+function showResults(results) {
+    var entries = results.items[0].id.videoId;
+    vm.src = "https://www.youtube.com/embed/" + entries.toString();
+    console.log(vm.src);
+    document.getElementById('video').src = vm.src;
+    document.getElementById('video').style.display = "block";
+
+}
+

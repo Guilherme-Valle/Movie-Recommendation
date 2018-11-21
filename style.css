@@ -23,8 +23,13 @@ body {
 
 .inputs {
     margin-top: 15px;
-    margin-left: 40%;
+    margin-left: 38%;
     padding-bottom: 20px;
+}
+
+#video {
+    margin-left: 30%;
+    display: none;
 }
 
 button {
