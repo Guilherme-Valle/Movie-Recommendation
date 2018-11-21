@@ -23,7 +23,7 @@ body {
 
 .inputs {
     margin-top: 15px;
-    margin-left: 710px;
+    margin-left: 30%;
     padding-bottom: 20px;
 }
 
@@ -38,3 +38,4 @@ h4 {
     text-decoration: underline;
     display: none;
 }
+

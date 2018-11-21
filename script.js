@@ -21,11 +21,39 @@ $.each(categories, function (i, item) {
 });
 
 /**
+Using youtube apikey to get trailers of the movies
+*/
+$(function(){
+	$("form").on("submit", fuction(e) {
+		e.preventDefault(); //Request is ready	
+		var request = gapi.client.youtube.search.list({
+			part: "snippet",
+			type: "video",
+			q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
+			maxResults: 1,
+			order: "viewCount"
+		});
+		//request is executed
+		request.execute(fuction(response)){
+			var results = 
+			});
+		});
+	});
+});
+
+function iniatilizeapi(){
+		gapi.client.setApiKey("AIzaSyA6J3Ru2hawX5rArvcX_Re7NwB8Bl8KLIY");
+		gapi.client.load("youtube", "v3", function(){
+			//Api=Ok
+		}
+}
+
+/**
  * Listener para o botão de recomendação do filme.
  * Faz uma requisição Ajax.
  */
 $("#recomendation").click(function () {
-    makeRecommendation(false);
+    makeRecommendation(true);
 })
 
 function makeRecommendation(isRepeated) {
@@ -149,7 +177,7 @@ function showMovieRecommendation(div) {
 }
 
 $("#show_another_movie").click(function () {
-    makeRecommendation(true);
+    makeRecommendation(false);
 })
 
 $("#new_search").click(function () {
