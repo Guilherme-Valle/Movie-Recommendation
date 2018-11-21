@@ -47,12 +47,34 @@ $("#recomendation").click(function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
             var dom = document.createElement('main_content');
             dom.innerHTML = xmlhttp.responseText;
+            /** Lista que será preenchida com os filmes que atenderem a critérios do filtro */
+            var moviesOnFilter = [];
+
             /** Itera o objeto DOM e realiza os filtros  */
             for (var i = 1; i < dom.children.length; i++){
-                var sinopsis = dom.children[i].getElementsByClassName('sinopsis')[0].innerText;
-                var categorie = dom.children[i].getElementsByClassName('categories')[0].innerText;
-                var year = dom.children[i].children[2].innerText;
-                var actors = dom.children[i].getElementsByClassName('actors')[0].innerText;
+                /** Variável para verificar se o filme atende a algum dos filtros */
+                var flag = false;
+                /** Busca as informações sobre o filme  */
+                var sinopsisOfMovie = dom.children[i].getElementsByClassName('sinopsis')[0].innerText;
+                var categoriesOfMovie = dom.children[i].getElementsByClassName('categories')[0].children;
+                var yearOfMovie = dom.children[i].children[2].innerText;
+                var actorsOfMovie = dom.children[i].getElementsByClassName('actors')[0].innerText;
+                if (year){
+                    yearOfMovie = yearOfMovie.split(": ");
+                    if (year === yearOfMovie[1]){
+                        flag = true;
+                    }
+                }
+                if (categorie){
+                    for (var z = 0; z < categoriesOfMovie.length; z++){
+                        if (categoriesOfMovie[z].innerText === categorie){
+                            var flag = true;
+                        }
+                    }
+                }
+
+
+
             }
 
         }
