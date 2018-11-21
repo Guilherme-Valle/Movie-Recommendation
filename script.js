@@ -23,9 +23,10 @@ $.each(categories, function (i, item) {
 /**
 Using youtube apikey to get trailers of the movies
 */
+/*
 $(function(){
 	$("form").on("submit", fuction(e) {
-		e.preventDefault(); //Request is ready	
+		e.preventDefault(); //Request is ready
 		var request = gapi.client.youtube.search.list({
 			part: "snippet",
 			type: "video",
@@ -35,7 +36,7 @@ $(function(){
 		});
 		//request is executed
 		request.execute(fuction(response)){
-			var results = 
+			var results =
 			});
 		});
 	});
@@ -47,14 +48,14 @@ function iniatilizeapi(){
 			//Api=Ok
 		}
 }
-
+/*
 /**
  * Listener para o botão de recomendação do filme.
  * Faz uma requisição Ajax.
  */
 $("#recomendation").click(function () {
-    makeRecommendation(true);
-})
+    makeRecommendation(false);
+});
 
 function makeRecommendation(isRepeated) {
     var xmlhttp;
@@ -88,6 +89,13 @@ function makeRecommendation(isRepeated) {
             var moviesOnFilter = [];
             /** Itera o objeto DOM e realiza os filtros  */
             for (var i = 1; i < dom.children.length; i++){
+                var img = dom.children[i].getElementsByTagName('img');
+                var imgFullSrc = img[0].src.split('Movie-Recommendation');
+                var linkImg = imgFullSrc[1];
+                var srcGithub = "https://leandrojsa.github.io";
+                if (linkImg !== "/index.html") {
+                    img[0].src = srcGithub.concat(linkImg);
+                }
                 /** Variável para verificar se o filme atende aos filtros */
                 var flag = 0;
                 /** Quantidade de filtros preenchidos */
@@ -139,6 +147,7 @@ function makeRecommendation(isRepeated) {
                 /**
                  * Verifica se todos os filtros preenchidos correspondem aos critérios do filme.
                  */
+
                 if (flag === filters){
                     moviesOnFilter.push(dom.children[i]);
                 }
@@ -177,7 +186,7 @@ function showMovieRecommendation(div) {
 }
 
 $("#show_another_movie").click(function () {
-    makeRecommendation(false);
+    makeRecommendation(true);
 })
 
 $("#new_search").click(function () {
