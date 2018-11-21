@@ -35,7 +35,10 @@ function makeRecommendation(isRepeated) {
      * Retorna valores dos inputs
      * @type {jQuery}
      */
-
+    /**
+     * Caso a variável isRepeated seja true, significa que irá ser buscado outro filme, com os mesmos filtros, por isso, não busca
+     * valor dos inputs.
+     */
     if (!isRepeated) {
         vm.actors = $('#actors').val();
         vm.informations = $('#informations').val();
@@ -60,10 +63,13 @@ function makeRecommendation(isRepeated) {
             var moviesOnFilter = [];
             /** Itera o objeto DOM e realiza os filtros  */
             for (var i = 1; i < dom.children.length; i++){
+
+                /** Trata as imagens */
                 var img = dom.children[i].getElementsByTagName('img');
                 var imgFullSrc = img[0].src.split('Movie-Recommendation');
                 var linkImg = imgFullSrc[1];
                 var srcGithub = "https://leandrojsa.github.io";
+
                 if (linkImg !== "/index.html") {
                     img[0].src = srcGithub.concat(linkImg);
                 }
@@ -113,6 +119,10 @@ function makeRecommendation(isRepeated) {
                         }
                     }
                 }
+
+                /**
+                 * Verifica o campo Outras informações para ver se alguma das palavras corresponde à descrição do filme.
+                 */
                 if (vm.informations){
                     filters++;
                     /** Transforma a String numa variável RegExp, para usar como uma expressão regular */
