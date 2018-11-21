@@ -17,7 +17,7 @@
     <div class="inputs">
         <table style="flex">
             <td><h2>Ano</h2>
-                <input type="text" aria-label="Ano" id="year">
+                <input type="text" aria-label="Ano" id="year" placeholder="Ex: 1931">
                 <h2>Categorias</h2>
                 <select class="categorie">
                 <option value="" disabled selected>Selecione uma categoria</option>
@@ -25,15 +25,14 @@
             </td>
             <td>
                 <h2>Atores</h2>
-                <input type="text" id="actors">
+                <input type="text" id="actors" placeholder="Ex: Morgan Freeman, Regina Casé">
                 <h2>Outras informações</h2>
-                <input type="text" id="informations">
+                <input type="text" id="informations" placeholder="Ex: Filme com bruxos">
             </td>
         </table>
     </div>
-    <button>Me recomende!</button>
+    <button id="recomendation">Me recomende!</button>
   </div>
-</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="script.js"></script>

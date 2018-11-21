@@ -17,3 +17,32 @@ $.each(categories, function (i, item) {
         text : item
     }));
 });
+
+/**
+ * Listener para o botão de recomendação do filme.
+ * Faz uma requisição Ajax.
+ */
+$("#recomendation").click(function () {
+    var xmlhttp;
+    if (window.XMLHttpRequest){
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject();
+    }
+
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+            var dom = document.createElement('main_content');
+            dom.innerHTML = xmlhttp.responseText;
+            /** Itera o objeto DOM e realiza os filtros  */
+            for (var i = 0; i < dom.children.length; i++){
+                var sinopsis = dom.children[i].getElementsByClassName('sinopsis')[0].innerText;
+                var categorie = dom.children[i].getElementsByClassName('categories')[0].innerText
+            }
+
+        }
+        
+    }
+    xmlhttp.open("GET", "https://leandrojsa.github.io/movies.html", true);
+    xmlhttp.send();
+})
