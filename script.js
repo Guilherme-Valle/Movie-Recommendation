@@ -108,7 +108,10 @@ $("#recomendation").click(function () {
                 }
             }
 
-            console.log(moviesOnFilter);
+            if (moviesOnFilter.length > 0) {
+                moviesOnFilter = shuffle(moviesOnFilter);
+                showMovieRecommendation(moviesOnFilter[0]);
+            }
 
         }
         
@@ -116,3 +119,29 @@ $("#recomendation").click(function () {
     xmlhttp.open("GET", "https://leandrojsa.github.io/movies.html", true);
     xmlhttp.send();
 })
+
+function showMovieRecommendation(div) {
+    console.log(div);
+    var main_content = document.getElementById("main_content");
+    var previous_content = main_content;
+    main_content.innerHTML = div.innerHTML;
+}
+
+
+/** Classical algorithm to shuffle array */
+function shuffle(array){
+    var m = array.length, t, i;
+    // While there remain elements to shuffle…
+    while (m) {
+
+        // Pick a remaining element…
+        i = Math.floor(Math.random() * m--);
+
+        // And swap it with the current element.
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+    }
+
+    return array;
+}
