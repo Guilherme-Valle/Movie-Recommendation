@@ -99,6 +99,10 @@ $("#recomendation").click(function () {
                         flag++;
                     }
                 }
+
+                /**
+                 * Verifica se todos os filtros preenchidos correspondem aos critérios do filme.
+                 */
                 if (flag === filters){
                     moviesOnFilter.push(dom.children[i]);
                 }
