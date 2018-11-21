@@ -1,3 +1,5 @@
+vm = this;
+
 /**
  * Array of Categories of Movies
  * @type {string[]}
@@ -23,18 +25,24 @@ $.each(categories, function (i, item) {
  * Faz uma requisição Ajax.
  */
 $("#recomendation").click(function () {
+    makeRecommendation(false);
+})
+
+function makeRecommendation(isRepeated) {
     var xmlhttp;
 
     /**
      * Retorna valores dos inputs
      * @type {jQuery}
      */
-    var actors = $('#actors').val();
-    var informations = $('#informations').val();
-    var year = $('#year').val();
-    var categorie = $('#select').val();
-    actors = actors ? actors.split(',') : null;
 
+    if (!isRepeated) {
+        vm.actors = $('#actors').val();
+        vm.informations = $('#informations').val();
+        vm.year = $('#year').val();
+        vm.categorie = $('#select').val();
+        vm.actors = vm.actors ? vm.actors.split(',') : null;
+    }
     if (window.XMLHttpRequest){
         xmlhttp = new XMLHttpRequest();
     } else {
@@ -63,37 +71,37 @@ $("#recomendation").click(function () {
                 var actorsOfMovie = dom.children[i].getElementsByClassName('actors')[0].children;
 
                 /** Verifica se o ano do filme corresponde ao do filtro */
-                if (year){
+                if (vm.year){
                     filters++;
                     yearOfMovie = yearOfMovie.split(": ");
-                    if (year === yearOfMovie[1]){
+                    if (vm.year === yearOfMovie[1]){
                         flag++;
                     }
                 }
                 /** Verifica se uma das categorias do filme corresponde ao do filtro */
-                if (categorie){
+                if (vm.categorie){
                     filters++;
                     for (var z = 0; z < categoriesOfMovie.length; z++){
-                        if (categoriesOfMovie[z].innerText === categorie){
+                        if (categoriesOfMovie[z].innerText === vm.categorie){
                             flag++;
                         }
                     }
                 }
                 /** Verifica se um dos atores do filtro corresponde a algum dos atores do filme */
-                if (actors){
+                if (vm.actors){
                     filters++;
                     for (var k = 0; k < actors.length; k++){
                         for (x = 0; x < actorsOfMovie.length; x++){
-                            if (actorsOfMovie[x].innerText === actors[k]){
+                            if (actorsOfMovie[x].innerText === vm.actors[k]){
                                 flag++;
                             }
                         }
                     }
                 }
-                if (informations){
+                if (vm.informations){
                     filters++;
                     /** Transforma a String numa variável RegExp, para usar como uma expressão regular */
-                    var rgxp = new RegExp(informations, "g");
+                    var rgxp = new RegExp(vm.informations, "g");
                     /** Simulação do LIKE no SQL */
                     if (sinopsisOfMovie.match(rgxp)){
                         flag++;
@@ -114,18 +122,42 @@ $("#recomendation").click(function () {
             }
 
         }
-        
+
     }
     xmlhttp.open("GET", "https://leandrojsa.github.io/movies.html", true);
     xmlhttp.send();
+}
+
+/**
+ * Exibe a recomendação do filme na tela
+ * @param div
+ */
+function showMovieRecommendation(div) {
+    var main_content = document.getElementById("main_content");
+    /** Salva conteúdo anterior da div */
+    vm.previous_content = main_content.innerHTML;
+    main_content.innerHTML = div.innerHTML;
+    var options = document.getElementsByTagName("h4");
+    options[0].style.display = "block";
+    options[1].style.display = "block";
+    var button = document.getElementById('recomendation');
+    button.style.display = "none";
+}
+
+$("#show_another_movie").click(function () {
+    makeRecommendation(true);
 })
 
-function showMovieRecommendation(div) {
-    console.log(div);
+$("#new_search").click(function () {
+    var button = document.getElementById('recomendation');
+    button.style.display = "block";
     var main_content = document.getElementById("main_content");
-    var previous_content = main_content;
-    main_content.innerHTML = div.innerHTML;
-}
+    main_content.innerHTML = vm.previous_content;
+    var options = document.getElementsByTagName("h4");
+    options[0].style.display = "none";
+    options[1].style.display = "none";
+
+})
 
 
 /** Classical algorithm to shuffle array */
