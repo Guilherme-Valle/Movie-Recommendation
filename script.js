@@ -1,5 +1,5 @@
 vm = this;
-
+vm.countRestart = 0;
 /**
  * Array of Categories of Movies
  * @type {string[]}
@@ -135,13 +135,17 @@ function makeRecommendation(isRepeated) {
 function showMovieRecommendation(div) {
     var main_content = document.getElementById("main_content");
     /** Salva conteúdo anterior da div */
-    vm.previous_content = main_content.innerHTML;
+    if (vm.countRestart === 0) {
+        vm.previous_content = main_content.innerHTML;
+    }
+    vm.countRestart++;
     main_content.innerHTML = div.innerHTML;
     var options = document.getElementsByTagName("h4");
     options[0].style.display = "block";
     options[1].style.display = "block";
     var button = document.getElementById('recomendation');
     button.style.display = "none";
+    vm.countRestart++;
 }
 
 $("#show_another_movie").click(function () {
@@ -149,8 +153,10 @@ $("#show_another_movie").click(function () {
 })
 
 $("#new_search").click(function () {
+    vm.countRestart = 0;
     var button = document.getElementById('recomendation');
     button.style.display = "block";
+    button.style.marginLeft = "45%";
     var main_content = document.getElementById("main_content");
     main_content.innerHTML = vm.previous_content;
     var options = document.getElementsByTagName("h4");
