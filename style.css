@@ -1,14 +1,16 @@
 body {
     background-image: url("https://www.sendtur.com.br/2016/wp-content/uploads/2018/08/Catholic-Church-Vatican-Wallpapers-HD-Wallpapers.jpg");
+    color: whitesmoke;
+    font-family: "Tibetan Machine Uni";
 }
 
 .content {
     min-height: 230px;
     max-width: 1800px;
-    background-color: whitesmoke;
+    background-color: brown;
     padding: 10px;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 20px;
     margin-left: 40px;
     border-radius: 20px;
     margin-bottom: 50px;
@@ -23,9 +25,9 @@ body {
 }
 
 .inputs {
-    margin-top: 15px;
+    margin-top: 10px;
     margin-left: 38%;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 }
 
 #video {
@@ -44,4 +46,6 @@ h4 {
     text-decoration: underline;
     display: none;
 }
+
+
 
