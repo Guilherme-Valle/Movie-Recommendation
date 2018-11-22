@@ -57,6 +57,10 @@ function makeRecommendation(isRepeated) {
      */
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+            /**
+             * Cria um elemento HTML, que recebe o conteúdo do arquivo retornado na requisição Ajax;
+             * @type {HTMLElement}
+             */
             var dom = document.createElement('main_content');
             dom.innerHTML = xmlhttp.responseText;
             /** Lista que será preenchida com os filmes que atenderem a critérios do filtro */
@@ -64,7 +68,8 @@ function makeRecommendation(isRepeated) {
             /** Itera o objeto DOM e realiza os filtros  */
             for (var i = 1; i < dom.children.length; i++){
 
-                /** Trata as imagens */
+                /** Trata as imagens, alterando o caminho dos arquivos source
+                 * para a pasta do Github */
                 var img = dom.children[i].getElementsByTagName('img');
                 var imgFullSrc = img[0].src.split('Movie-Recommendation');
                 var linkImg = imgFullSrc[1];
@@ -142,6 +147,9 @@ function makeRecommendation(isRepeated) {
                 }
             }
 
+            /*
+            Caso tenham filmes dentro dos critérios, mistura Array e exibe, aleatóriamente, o filme na primeira posição
+             */
             if (moviesOnFilter.length > 0) {
                 moviesOnFilter = shuffle(moviesOnFilter);
                 showMovieRecommendation(moviesOnFilter[0]);
@@ -149,7 +157,11 @@ function makeRecommendation(isRepeated) {
 
         }
 
-    }
+    };
+
+    /**
+     * Requisição Ajax
+     */
     xmlhttp.open("GET", "https://leandrojsa.github.io/movies.html", true);
     xmlhttp.send();
 }
@@ -161,7 +173,7 @@ function makeRecommendation(isRepeated) {
 function showMovieRecommendation(div) {
     console.log();
     var main_content = document.getElementById("main_content");
-    /** Salva conteúdo anterior da div */
+    /** Salva conteúdo anterior da div, para possibilitar voltar ao estado inicial. */
     if (vm.countRestart === 0) {
         vm.previous_content = main_content.innerHTML;
     }
@@ -173,14 +185,18 @@ function showMovieRecommendation(div) {
     options[0].style.display = "block";
     options[1].style.display = "block";
     var button = document.getElementById('recomendation');
+
+    /**
+     * Formata a string que será enviada na requisição à API do Youtube, como NomeDoFilme trailer
+     * @type {string}
+     */
     var nomeDoFilme = div.children[1].innerText;
     nomeDoFilme += ' trailer';
-    console.log(nomeDoFilme);
 
-
+    /**
+     * Requisição para a API do Youtube.
+     */
     getRequest(nomeDoFilme);
-
-    var youtubeString = 'https://www.youtube.com/embed/';
 
     /** Oculta o botão */
     button.style.display = "none";
@@ -199,11 +215,30 @@ $("#show_another_movie").click(function () {
  * Retorna para a tela inicial
  */
 $("#new_search").click(function () {
+    /**
+     * Reseta variável que verifica se é uma pesquisa nova
+     * @type {number}
+     */
     vm.countRestart = 0;
+
+    /**
+     * Oculta o vídeo
+     * @type {string}
+     */
     document.getElementById('video').style.display = "none";
+
+    /**
+     * Mostra novamente o botão de submit.
+     * @type {HTMLElement}
+     */
     var button = document.getElementById('recomendation');
     button.style.display = "block";
     button.style.marginLeft = "45%";
+
+    /**
+     * Recupera e exibe novamente o formulário com os filtros
+     * @type {HTMLElement}
+     */
     var main_content = document.getElementById("main_content");
     main_content.innerHTML = vm.previous_content;
     var options = document.getElementsByTagName("h4");
@@ -231,7 +266,10 @@ function shuffle(array){
     return array;
 }
 
-
+/**
+ * Request para a API do youtube
+ * @param searchTerm
+ */
 function getRequest(searchTerm) {
     var url = 'https://www.googleapis.com/youtube/v3/search';
     var search = searchTerm;
@@ -243,10 +281,13 @@ function getRequest(searchTerm) {
     $.getJSON(url, params, showResults);
 }
 
+/**
+ * Formata retorno da requisição GET, formatando o src do vídeo e o exibindo.
+ * @param results
+ */
 function showResults(results) {
     var entries = results.items[0].id.videoId;
     vm.src = "https://www.youtube.com/embed/" + entries.toString();
-    console.log(vm.src);
     document.getElementById('video').src = vm.src;
     document.getElementById('video').style.display = "block";
 
