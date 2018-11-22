@@ -1,5 +1,5 @@
 body {
-    background-color: cadetblue;
+    background-image: url("https://www.sendtur.com.br/2016/wp-content/uploads/2018/08/Catholic-Church-Vatican-Wallpapers-HD-Wallpapers.jpg");
 }
 
 .content {
@@ -9,6 +9,7 @@ body {
     padding: 10px;
     text-align: center;
     margin-top: 40px;
+    margin-left: 40px;
     border-radius: 20px;
     margin-bottom: 50px;
     -webkit-box-shadow: 26px 10px 5px 0px rgba(0,0,0,0.75);
