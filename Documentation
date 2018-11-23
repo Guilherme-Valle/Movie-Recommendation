@@ -1,0 +1,116 @@
+
+Array das categorias dos filmes inserido;
+
+
+Colocadas as categorias dentro do combo-box;
+
+
+Listener para o botão de recomendação do filme fazer uma requisição Ajax;
+
+
+Retorna valores dos inputs;
+
+
+Caso a variável isRepeated seja true, significa que irá ser buscado outro filme, com os mesmos filtros, por isso, não busca valor dos inputs;
+
+
+Requisição Ajax para o arquivo HTML com as informações dos filmes;
+
+
+Cria um elemento HTML, que recebe o conteúdo do arquivo retornado na requisição Ajax;
+
+
+Lista que será preenchida com os filmes que atenderem a critérios do filtro;
+
+
+Itera o objeto DOM e realiza os filtros;
+
+
+Trata as imagens, alterando o caminho dos arquivos source para a pasta do Github;
+
+
+Variável para verificar se o filme atende aos filtros;
+
+
+Quantidade de filtros preenchidos;
+
+
+Busca as informações sobre o filme;
+
+
+Verifica se o ano do filme corresponde ao do filtro;
+
+
+Verifica se uma das categorias do filme corresponde ao do filtro;
+
+
+Verifica se um dos atores do filtro corresponde a algum dos atores do filme;
+
+
+Verifica o campo Outras informações para ver se alguma das palavras corresponde à descrição do filme;
+
+
+Transforma a String numa variável RegExp, para usar como uma expressão regular;
+
+
+Verifica se todos os filtros preenchidos correspondem aos critérios do filme;
+
+
+Caso tenham filmes dentro dos critérios, mistura Array e exibe, aleatóriamente, o filme na primeira posição;
+
+
+Requisição Ajax;
+
+
+Exibe a recomendação do filme na tela;
+
+
+Salva conteúdo anterior da div, para possibilitar voltar ao estado inicial;
+
+
+Exibe botões para voltar à tela anterior;
+
+
+Formata a string que será enviada na requisição à API do Youtube, como NomeDoFilme trailer;
+
+
+Requisição para a API do Youtube;
+
+
+Oculta o botão;
+
+
+Chama outra recomendação, sem mudar os parâmetros dos filtros;
+
+
+Retorna para a tela inicial;
+
+
+Reseta variável que verifica se é uma pesquisa nova;
+
+
+Oculta o vídeo;
+
+
+Mostra novamente o botão de submit;
+
+
+Recupera e exibe novamente o formulário com os filtros;
+
+
+Classical algorithm to shuffle array;
+
+
+While there remain elements to shuffle;
+
+
+Pick a remaining element;
+
+
+And swap it with the current element;
+
+
+Request para a API do youtube;
+
+
+Formata retorno da requisição GET, formatando o src do vídeo e o exibindo.
